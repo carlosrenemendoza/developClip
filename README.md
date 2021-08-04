@@ -15,9 +15,9 @@ next js
 ### Installing
 como gestionado de paquetes se puede usar tanto yarn como npm en mi caso use yarn
 
-yarn install 
-yarn dev
-yarn test
+yarn install --->> instalacion de dependecnias 
+yarn dev   --->> levantamiento de server 
+yarn test  --->>> pruebas jest
 
 
 ### rutas:

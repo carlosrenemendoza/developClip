@@ -195,26 +195,14 @@ class creditCard extends Component {
       if (emailRegex.test(event.target.value)) {
         infocard[id] = event.target.value;
         visaCards = creditCardType(event.target.value);
-        console.log("visaCards",visaCards);
-        console.log("infocard[id].maxlength ",infocard[id].maxlength );
-
-
         if (visaCards.length > 0 && id === 'cardNumber' ){
           formCardCred.map((e)=>{
-            console.log("e",e);
             if(e.id === 'cvv'){
               if (visaCards[0].niceType === "American Express") e.maxlength = '4'
               else e.maxlength = '3'              
             }
           })
         }
-        
-        // formCardCred[id].maxlength = visaCards.length > 0 ? `${visaCards[0].code.size}` : '3';
-
-        // console.log("visaCards",visaCards[0].code.size);
-        console.log("formCardCred",formCardCred);
-
-
         this.setState({ infocard, creditCard: visaCards,formCardCred}, () => {
           this.buildForm();
         });
