@@ -80,7 +80,7 @@ class creditCard extends Component {
           labelText: 'Card Number',
           classNameLabel: 'card-input__label',
           datatype: 'Input',
-          type: 'number',
+          type: '',
           inputClass: '__input',
           value: '',
           maxlength: '16',
@@ -138,10 +138,10 @@ class creditCard extends Component {
           labelText: 'CVV',
           classNameLabel: 'card-input__label',
           datatype: 'Input',
-          type: 'number',
+          type: '',
           inputClass: '__input',
           value: '',
-          maxlength: '4',
+          maxlength: '3',
           regExp: /^[0-9]{0,4}$/,
           style: {},
         },
@@ -184,7 +184,7 @@ class creditCard extends Component {
   };
 
   changeInput = (id, exp) => (event) => {
-    let { infocard, formCardCred } = this.state;
+    let { infocard, formCardCred,} = this.state;
     formCardCred.forEach((e) => {
       e.style = { color: '#000001' };
       e.error = '';
@@ -195,7 +195,27 @@ class creditCard extends Component {
       if (emailRegex.test(event.target.value)) {
         infocard[id] = event.target.value;
         visaCards = creditCardType(event.target.value);
-        this.setState({ infocard, creditCard: visaCards }, () => {
+        console.log("visaCards",visaCards);
+        console.log("infocard[id].maxlength ",infocard[id].maxlength );
+
+
+        if (visaCards.length > 0 && id === 'cardNumber' ){
+          formCardCred.map((e)=>{
+            console.log("e",e);
+            if(e.id === 'cvv'){
+              if (visaCards[0].niceType === "American Express") e.maxlength = '4'
+              else e.maxlength = '3'              
+            }
+          })
+        }
+        
+        // formCardCred[id].maxlength = visaCards.length > 0 ? `${visaCards[0].code.size}` : '3';
+
+        // console.log("visaCards",visaCards[0].code.size);
+        console.log("formCardCred",formCardCred);
+
+
+        this.setState({ infocard, creditCard: visaCards,formCardCred}, () => {
           this.buildForm();
         });
       }
